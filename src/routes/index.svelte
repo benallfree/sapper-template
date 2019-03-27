@@ -30,17 +30,33 @@
 			font-size: 4em;
 		}
 	}
+	form,input {
+		font-family: monospace;
+	}
 </style>
 
 <svelte:head>
 	<title>Sapper project template</title>
 </svelte:head>
 
-<h1>Great success!</h1>
+<form>
+  phone: "{$page.query.phone}"
+  <br>value<input type="text" value={$page.query.phone}>
+  <br>bind:value<input type="text" bind:value={$page.query.phone}>
+  <br>let<input type="text" value={phone}> should keep initial value
+  <br>{JSON.stringify($page.query)}
+</form>
 
-<figure>
-	<img alt='Borat' src='great-success.png'>
-	<figcaption>HIGH FIVE!</figcaption>
-</figure>
+<a href="/?phone=+123456789">/?phone=+123456789</a>
+<br>
+<a href="/?phone=+987654321">/?phone=+987654321</a>
+<br>
+<a href="/?phone=%2B123456789">/?phone=%2B123456789</a>
+<br>
+<a href="/?phone=%2B987654321">/?phone=%2B987654321</a>
 
-<p><strong>Try editing this file (routes/index.html) to test live reloading.</strong></p>
+<script>
+  import { page } from '@sapper/app'
+
+  let phone = $page.query.phone
+</script>
